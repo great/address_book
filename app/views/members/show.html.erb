@@ -1,2 +1,5 @@
 <% provide(:title, @member.name) %>
-<h1><%= @member.name %></h1>
+<h1>
+  <%= gravatar_for @member %>
+  <%= @member.name %>
+</h1>
