@@ -5,7 +5,8 @@ class SessionsController < ApplicationController
   def create
     member = Member.find_by(email: params[:session][:email].downcase)
     if member && member.authenticate(params[:session][:password])
-      # Sign the user in and redirect to the member's show page.
+      sign_in member
+      redirect_to member
     else
       flash.now[:error] = 'Invalid email/password combination'
       render 'new'
@@ -13,5 +14,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    sign_out
+    redirect_to root_url
   end
 end

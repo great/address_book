@@ -10,6 +10,7 @@ class MembersController < ApplicationController
   def create
     @member = Member.new(member_params)
     if @member.save
+      sign_in @member
       flash[:success] = "Welcome to the Address Book!"
       redirect_to @member
     else
