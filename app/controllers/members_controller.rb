@@ -11,7 +11,7 @@ class MembersController < ApplicationController
     @member = Member.new(member_params)
     if @member.save
       sign_in @member
-      flash[:success] = "Welcome to the Address Book!"
+      flash[:success] = 'Welcome to the Address Book!'
       redirect_to @member
     else
       render 'new'
@@ -20,6 +20,16 @@ class MembersController < ApplicationController
 
   def edit
     @member = Member.find(params[:id])
+  end
+
+  def update
+    @member = Member.find(params[:id])
+    if @member.update_attributes(member_params)
+      flash[:success] = 'Profile updated'
+      redirect_to @member
+    else
+      render 'edit'
+    end
   end
 
   private
