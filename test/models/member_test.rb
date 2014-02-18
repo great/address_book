@@ -4,7 +4,7 @@ class MemberTest < ActiveSupport::TestCase
 
   #before do
   def setup
-    @member = Member.new(name:'Example Member', email:'user@example.com', password:'foobar', password_confirmation:'foobar')
+    @member = Member.new(name:'Example Member', email:'user@example.com', password:'password1', password_confirmation:'password1')
   end
 
   test 'should have fields' do
@@ -61,15 +61,20 @@ class MemberTest < ActiveSupport::TestCase
     assert_not @member.valid? :password_confirmation
   end
 
+  test 'with valid_password' do
+    @member.save
+    found_member = Member.find_by(email: @member.email)
+    assert found_member.authenticate(@member.password)
+  end
+
   #  describe "when password doesn't match confirmation" do
   #    before { @user.password_confirmation = "mismatch" }
   #    it { should_not be_valid }
   #  end
 
-  test 'with valid_password' do
-    @member.save
-    found_member = Member.find_by email:@member.email
-    assert found_member.authenticate(@member.password)
+  test 'when password is too short' do
+    @member.password = 'a' * 7
+    assert_not @member.valid? :password
   end
 
 end
