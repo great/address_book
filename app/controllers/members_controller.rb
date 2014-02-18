@@ -18,6 +18,10 @@ class MembersController < ApplicationController
     end
   end
 
+  def edit
+    @member = Member.find(params[:id])
+  end
+
   private
 
     def member_params
