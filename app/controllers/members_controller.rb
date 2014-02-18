@@ -44,8 +44,11 @@ class MembersController < ApplicationController
   # Before filters
 
   def signed_in_member
-    # around Figure 9.6: what is signin_url?
-    redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    unless signed_in?
+      store_location
+      # around Figure 9.6: what is signin_url?
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
   end
 
   def correct_member
