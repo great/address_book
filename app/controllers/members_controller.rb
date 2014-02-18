@@ -3,7 +3,7 @@ class MembersController < ApplicationController
   before_action :correct_member,   only: [:edit, :update]
 
   def index
-    @members = Member.all
+    @members = Member.paginate(page: params[:page])
   end
 
   def show
