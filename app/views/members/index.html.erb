@@ -4,12 +4,7 @@
 <%= will_paginate %>
 
 <ul class="members">
-  <% @members.each do |member| %>
-      <li>
-        <%= gravatar_for member, size: 52 %>
-        <%= link_to member.name, member %>
-      </li>
-  <% end %>
+  <%= render @members %>
 </ul>
 
 <%= will_paginate %>
