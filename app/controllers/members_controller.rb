@@ -2,6 +2,10 @@ class MembersController < ApplicationController
   before_action :signed_in_member, only: [:edit, :update]
   before_action :correct_member,   only: [:edit, :update]
 
+  def index
+    @members = Member.all
+  end
+
   def show
     @member = Member.find(params[:id])
   end
