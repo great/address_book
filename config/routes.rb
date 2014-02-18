@@ -4,7 +4,9 @@ AddressBook::Application.routes.draw do
   root  'static_pages#home'
   match '/help',    to: 'static_pages#help',    via: 'get'
 #  match '/about',   to: 'static_pages#about',   via: 'get'
-  match 'signup',   to: 'members#new',          via: 'get'
+  match '/signup',  to: 'members#new',          via: 'get'
+  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
