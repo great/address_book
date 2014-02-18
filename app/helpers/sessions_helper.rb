@@ -19,6 +19,10 @@ module SessionsHelper
     @current_member ||= Member.find_by(remember_token: remember_token)
   end
 
+  def current_member?(member)
+    member == current_member
+  end
+
   def sign_out
     current_member.update_attribute(:remember_token, Member.encrypt(Member.new_remember_token))
     cookies.delete(:remember_token)

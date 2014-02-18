@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
   before_action :signed_in_member, only: [:edit, :update]
+  before_action :correct_member,   only: [:edit, :update]
 
   def show
     @member = Member.find(params[:id])
@@ -45,5 +46,10 @@ class MembersController < ApplicationController
   def signed_in_member
     # around Figure 9.6: what is signin_url?
     redirect_to signin_url, notice: "Please sign in." unless signed_in?
+  end
+
+  def correct_member
+    @member = Member.find(params[:id])
+    redirect_to(root_url) unless current_member?(@member)
   end
 end
