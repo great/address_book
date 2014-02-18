@@ -1,4 +1,6 @@
 class MembersController < ApplicationController
+  before_action :signed_in_member, only: [:edit, :update]
+
   def show
     @member = Member.find(params[:id])
   end
@@ -37,4 +39,11 @@ class MembersController < ApplicationController
     def member_params
       params.require(:member).permit(:name, :email, :password, :password_confirmation)
     end
+
+  # Before filters
+
+  def signed_in_member
+    # around Figure 9.6: what is signin_url?
+    redirect_to signin_url, notice: "Please sign in." unless signed_in?
+  end
 end
